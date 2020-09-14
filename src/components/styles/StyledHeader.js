@@ -40,3 +40,6 @@ export const StyledTMDBLogo = styled.img`
     margin-top: 0px;
   }
 `;
+
+
+// export default StyledHeader;
