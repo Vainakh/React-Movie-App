@@ -33,6 +33,7 @@ export const useHomeFetch = () => {
 
   useEffect(() => {
     //change endpoint from movie to tv;
+    //input logic between tv and movie;
     fetchMovies(`${API_URL}tv/popular?api_key=${API_KEY}`);
   }, []);
   return [{state, loading, error}, fetchMovies];
