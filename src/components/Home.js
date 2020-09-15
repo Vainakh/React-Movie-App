@@ -1,4 +1,4 @@
-import React, {useState } from 'react';
+import React, { useState } from 'react';
 import { 
   API_URL, 
   API_KEY, 
@@ -27,7 +27,7 @@ import NoImage from './images/no_image.jpg';
 
   
 const Home = () => {
-
+  
   const [
     {
       state: {
@@ -43,6 +43,17 @@ const Home = () => {
     ] = useHomeFetch();
 
   const [searchTerm, setSearchTerm] = useState('');
+
+
+  const LoadMoreMovies = () => {
+
+    const searchEndpoint = `${API_URL}search/tv?api_key=${API_KEY}&query=${searchTerm}&page=${currentPage + 1}`;
+    const popularEndpoint = `${API_URL}tv/popular?api_key=${API_KEY}&page=${currentPage + 1}`;
+
+    const endpoint = searchTerm ? searchEndpoint : popularEndpoint;
+
+    fetchMovies(endpoint);
+  };
 
 
   if (error) return <div>Ooops...Something went wrong!</div>;
@@ -70,9 +81,13 @@ const Home = () => {
           ))
         }
       </Grid>
-      <MovieThumb />
-      <Spinner />
-      <LoadMoreBtn/>
+      {loading && <Spinner />}
+      {currentPage < totalPages && !loading && (
+        <LoadMoreBtn 
+        text="Load More"
+        callback={LoadMoreMovies}
+      />
+      )} 
     </>
   )
 }

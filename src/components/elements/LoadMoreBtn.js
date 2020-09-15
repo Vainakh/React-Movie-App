@@ -1,10 +1,12 @@
 import React from 'react';
 import {StyledLoadMoreBtn} from '../styles/StyledLoadMoreBtn';
 
-const LoadMoreBtn = ({}) => (
-  
-  <StyledLoadMoreBtn>
-    LoadMore
+
+
+const LoadMoreBtn = ({ text, callback }) => (
+
+  <StyledLoadMoreBtn type="button" onClick={callback}>
+    {text}
   </StyledLoadMoreBtn>
 )
 
