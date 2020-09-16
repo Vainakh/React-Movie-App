@@ -9,19 +9,24 @@ import Navigation from './elements/Navigation';
 import Grid from './elements/Grid';
 import Spinner from './elements/Spinner';
 
+import { useMovieFetch } from './hooks/useMovieFetch';
+
 
 const Movie = ( {movieId} ) => {
   
+  const [ movie, loading, error ] = useMovieFetch(movieId);
+  console.log(movie);
+
   return (
     <>
   <div>Movie: {movieId}</div>
-    <Navigation>Navigation</Navigation>
-    <MovieInfo>MovieInfo</MovieInfo>
-    <MovieInfoBar>MovieInfoBar</MovieInfoBar>
+    <Navigation/>
+    <MovieInfo/>
+    <MovieInfoBar/>
     <Grid>
-      <Actor>Actor</Actor>
+      <Actor/>
     </Grid>
-    <Spinner>Spinner</Spinner>
+    <Spinner/>
   </>
   )
 };
