@@ -12,21 +12,26 @@ import Spinner from './elements/Spinner';
 import { useMovieFetch } from './hooks/useMovieFetch';
 
 
-const Movie = ( {movieId} ) => {
-  
+const Movie = ({ movieId }) => {
+  // console.log(movieId)
   const [ movie, loading, error ] = useMovieFetch(movieId);
   console.log(movie);
 
+  if(error) return <div>Ooops...something went wrong!</div>
+  if (loading) return <Spinner/>
+
   return (
     <>
-  <div>Movie: {movieId}</div>
-    <Navigation/>
-    <MovieInfo/>
+    <Navigation
+      movie={movie.original_title}
+    />
+    <MovieInfo 
+      movie={movie}
+    />
     <MovieInfoBar/>
     <Grid>
       <Actor/>
     </Grid>
-    <Spinner/>
   </>
   )
 };

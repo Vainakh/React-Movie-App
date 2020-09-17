@@ -4,7 +4,7 @@ import { API_URL, API_KEY } from '../../config';
 
 export const useMovieFetch = (movieId) => {
   const [state, setState] = useState({});
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
   const fetchData = useCallback( async () => {
@@ -12,25 +12,27 @@ export const useMovieFetch = (movieId) => {
     setLoading(true);
 
     try {
-      const endpoint = `${API_URL}tv/${movieId}?api_key=${API_KEY}`;
-  
+      const endpoint = `${API_URL}movie/${movieId}?api_key=${API_KEY}`;
+      console.log(endpoint);
       const result = await (await fetch(endpoint)).json();
-      console.log(result);
+      // console.log(result);
 
-      const creditEndpoint = `${API_URL}tv/${movieId}credits?api_key=${API_KEY}`;
-      const creditsResult = await (await fetch(creditEndpoint)).json();
-      // console.log(creditsResult);
-      const directors = creditsResult.crew.filter(
-        member => member.job === 'Director'
-      );
-
+      const creditsEndpoint = `${API_URL}movie/${movieId}credits?api_key=${API_KEY}`;
+      const creditsResult = await (await fetch(creditsEndpoint)).json();
+      console.log(creditsResult);
+      // const directors = creditsResult.crew.filter(
+      //   member => member.job === 'Director'
+      // );
+      
+      
       setState({
         ...result,
         actors: creditsResult.cast,
-        directors,
+        // directors,
       })
 
     } catch(error) {
+      console.log(error)
       setError(true);
     }
     setLoading(false);
@@ -38,9 +40,9 @@ export const useMovieFetch = (movieId) => {
 
 
   useEffect(() => {
-    fetchData()
+    fetchData();
   }, [fetchData])
-
+  console.log(state)
   return [ state, loading, error];
   
 };
